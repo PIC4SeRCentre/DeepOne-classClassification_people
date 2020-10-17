@@ -90,7 +90,7 @@ regions far from people: our algorithm has reached the capability to produce fea
 Finally, Deep One-class Classification is evaluated in contrast to binary one, when the num-
 ber of people samples available during the training is reduced: our approach is able to correctly
 work when the level of imbalance of the training classes increases, in contrast with the binary
-case. In the below figure, ROC curves of DOC (blue) and binary classification (red) models are shown using 600 (first image) and 400 (second image) people samples: the red curve is moving away from the blue one, performing worse than it. 
+case. In the below figures, ROC curves of DOC (blue) and binary classification (red) models are shown using 600 (first image) and 400 (second image) people samples: the red curve is moving away from the blue one, performing worse than it. 
 
 ![ROC600](https://user-images.githubusercontent.com/62990264/96347589-eead1900-10a2-11eb-8780-34cd2343d99a.png)
 
