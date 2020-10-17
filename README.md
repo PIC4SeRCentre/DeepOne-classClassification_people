@@ -13,34 +13,42 @@ A Deep Learning algorithm able to recognize people instances in pictures is deve
 This is a One-Class Classification (OCC) problem where objects of a particular class are identified compared to all other possible ones. The person class is called *positive class* or *target class*, while other items are referred to be in the *negative class*, also called *alien class*.
 The biggest challenge is represented by the variety of objects opposed to the target class, which does neither allow to model the external class in a univocal way, nor to have all possible cases inside the training set. This problem cannot be solved using traditional techniques of binary and multiclass classifications, precisely because there are no pre-defined classes.
 
-We use **Deep One-class Classification** (DOC), a method proposed by Pramuditha Perera and Vishal M. Patel, targeting OCC problems in computer vision field, like *novelty detection, anomaly detection and mobile active authentication*.
+We use **Deep One-class Classification** (DOC), a method proposed by Pramuditha Perera and Vishal M. Patel, targeting OCC problems in computer vision field, like *novelty detection, anomaly detection* and *mobile active authentication*.
 
-The method is described in the article [Learning Deep Features for One-Class Classification](https://arxiv.org/abs/1801.05365) published in November 2019.
+The method is described in the article [Learning Deep Features for One-Class Classification](https://arxiv.org/abs/1801.05365), published in November 2019.
 
-## Description of the project
+## Overview of the project
 The key element in the discussion is *learning deep features* that characterize instances of people. The class composed by person examples is highly wide and therefore features are different and heterogeneous, this is very challenging.
-The computation of the customized loss function called compactness loss helps in this process, evaluating the compactness of person class in the feature space.
 
-This approach relies on the concept of transfer learning, since an external multiclass
-dataset from an unrelated task, called reference dataset, is employed to
-correctly learn deep features characterizing the person class, in addition to the
-one-class target dataset
+Another key element is the concept of *transfer learning* that allows to adapt a labeled dataset from an independent task, called *reference dataset*, to the One-Class Classification, in order to fill the lack coming from alien classes.
 
-A pre-trained Convolutional Neural Network, the high-performance MobileNetV2,
-is used in combination with two loss functions, compactness loss and descriptiveness
-loss, that make the variance of features extracted from the target dataset
-smaller and minimize the cross-entropy loss of the reference dataset.
-In this way, we achieve specialized features for Deep One-class Classification:
-they have the two fundamental properties of compactness, which means that
-objects of the same category have similar features located close to each other,
-and descriptiveness, that is elements of different categories have different features
-placed apart from the rest.
-The training part is carried out using grayscale images, obtained from RGB pictures
-of Open Images Dataset V4 and ILSVRC 2012 dataset, properly selected
-and pre-processed.
-This choice is motivated by a future extension of the Deep One-class Classification
-in InfraRed images, in order to recognize individuals in frames coming
-from surveillance videos, even at night.
+A pre-trained Convolutional Neural Network, the high-performance MobileNetV2, is used in combination with two customized loss functions, *compactness loss* and *descriptiveness loss* to realize people recognition.
+Specialized features for Deep One-class Classification have the two fundamental properties of *compactness*, which means that objects of the same category have similar features located close to each other, and *descriptiveness*, that is elements of different categories have different features placed apart from the rest.
+
+## Training datasets and training framework
+There are two training datasets in DOC: the *target dataset* and the *reference dataset*. 
+
+The first one is composed of images of the class we want to recognize: the class person. This dataset should be as heterogeneous as possible, including most of features that can be later isolated as person features. We look for these images in Open Images Dataset V4.
+
+The reference dataset, instead, is an arbitrary set containing unrelated images from multiple classes. In this work, a subset of the training set of ILSVR2012 is used, made of 10000 images from
+randomly chosen 20 classes. 
+
+The training part is carried out using grayscale images, obtained from the above defined RGB datasets, properly selected and pre-processed. This choice is motivated by a future extension of the Deep One-class Classification in InfraRed images.
+A unique MobileNetV2 is instantiated and fed with a big input batch, composed of two smaller
+batches of the same size: the *target sub-batch* and the *reference sub-batch*. From the first one, we look for features that characterize the target class. The meaningful output is produced by the average pooling layer : 1280 values for each image of the batch, representing the person features we want to impose as close as possible.
+
+From the second one, instead, we are interested in the classification output provided by the fully
+connected layer : 20 values that rapresent the categorical label of one among the 20 classes from
+the reference dataset. The cross-entropy loss is evaluated to impose descriptiveness in features.
+
+
+## Testing datasets and testing framework
+The testing part is realized by a template matching framework: firstly, some baseline features of person intances are stored as templates and then, in matching phase, a score is generated considering the Euclidean distance between them and new features from the test image. The score is transformed in considerable output for One-Class Classification thanks to a threshold.
+
+There are three testing datasets: BN1, with 1000 people images and 1000 alien objects from the 20 reference classes, BN2, with 1000 people images and 1000 alien objects from dierent classes of the reference dataset, IR containing InfraRed pictures, 55 of them with people and 55 without people.
+
+All models are evaluated using metrics like precision,
+recall, F1 score, accuracy and the Area Under Curve (AUC) of the ROC curve.
 The testing part is realized by a template matching framework, where, firstly,
 some baseline features of person intances are stored and, then, a score is generated
 considering the Euclidean distance between new and stored features.
@@ -54,6 +62,9 @@ SNE) visualization of features.
 The proposed approach is able to achieve very good results in all measurements,
 also compared to binary classification algorithms, which require instead a particular
 configuration of the training dataset.
+
+## Testing framework
+
 
 ## Installation procedure
 ...
