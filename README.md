@@ -40,20 +40,61 @@ From the first one, we look for features that characterize the target class comi
 
 From the second one, instead, we are interested in the classification output provided by the fully connected layer: 20 values that rapresent the categorical label of one among the 20 classes from the reference dataset. The *descriptiveness loss* is computed from them and minimized to impose descriptiveness in features.
 
-![losses](https://user-images.githubusercontent.com/62990264/96336455-4423fe80-1080-11eb-8561-ca150142705c.PNG)
+![losses](https://user-images.githubusercontent.com/62990264/96347251-b4db1300-10a0-11eb-8133-0c77cbaa365e.PNG)
 
 ### Testing datasets and testing framework
 The testing part is realized by a *template matching framework*: firstly in *template generation phase*, some baseline features of person intances are stored as templates and then, in *matching phase*, a score is generated considering the Euclidean distance between them and new features from the test image. The score is transformed in considerable output for One-Class Classification thanks to a threshold.
 
-![testing](https://user-images.githubusercontent.com/62990264/96346403-f0bfa980-109b-11eb-9795-f26dd713ab61.PNG)
+![testing](https://user-images.githubusercontent.com/62990264/96347299-0aafbb00-10a1-11eb-9c3c-c0476aefc73d.PNG)
 
 ### Achieved results
-All models are evaluated using metrics like precision, recall, F1 score, accuracy and the Area Under Curve (AUC) of the ROC curve.
-Also some graphical tools are employed to make comparisons among resulting methods, like Receiver Operating Characteristic (ROC) curves, Detection Error
-Tradeoff (DET) curves and the t-distributed Stochastic Neighbor Embedding (t-SNE) visualization of features.
-The proposed approach is able to achieve very good results in all measurements, also compared to binary classification algorithms, which require instead a particular configuration of the training dataset.
+All models are evaluated using metrics like precision, recall, F1 score, accuracy and the Area Under Curve (AUC) of the ROC curve. Also some graphical tools are employed to make comparisons among resulting methods, like Receiver Operating Characteristic (ROC) curves, Detection Error Tradeoff (DET) curves and the t-distributed Stochastic Neighbor Embedding (t-SNE) visualization of features.
 
+Detailed analysis are performed to understand the impact of changing certain parameters and, later, to find the best model for Deep One-class Classification of people.
 
+In particular, we operate:
+
+* modifying the parameter lambda that weights compactness loss and descriptiveness loss. For examples, we show some images of different loss minimizations:
+
+![lambd](https://user-images.githubusercontent.com/62990264/96347345-7abe4100-10a1-11eb-9029-b2ffb1d0daaf.PNG)
+
+and also pictures with ROC curves of different models:
+
+![lambd1](https://user-images.githubusercontent.com/62990264/96347451-2071b000-10a2-11eb-89cb-9c96cfe4a840.PNG)
+
+* varying the input batch size;
+
+* changing the number of trainable layers and the number of templates;
+
+* decreasing the number of target examples available during the training. 
+
+The best DOC model is the one trained with lambda = 10, input batch size= 32, n. of trainable layers = 40, n. of elements of target dataset= 6000, because it produces similar target features through correct compactness loss minimization and, also, is able to categorize elements of different classes through correct descriptiveness loss minimization. Performances achieved by testing dataset BN1 are very promising:
+
+| AUC        |Precision   | Recall     | F1 score   | Accuracy   |
+|:----------:|:----------:|:----------:|:----------:|:----------:|
+| 0.997      | 0.989      | 0.976      | 0.982      |   0.983    |
+
+Also, performances remain totally unaffected by the reduction of the number of templates, even when
+just one template is present. It follows that our DOC for people recognition succeeds in efficiently
+isolating the target class, extracting representative features of a person, as evidenced by the visualization of features through the dimensionality reduction technique *t-SNE*: 
+
+![f40](https://user-images.githubusercontent.com/62990264/96347539-94ac5380-10a2-11eb-94ce-fb97f8216b0e.PNG)
+
+![f5](https://user-images.githubusercontent.com/62990264/96347541-970ead80-10a2-11eb-9b6e-0ea93bb8fb08.PNG)
+
+In the above images, *red points* (with labels 0) are the features associated to images containg people, *green points* (labeled with 1) are the features extracted from pictures with no people and *blue points* (with a fake label 2) are the templates.
+
+In both images the templates are always in the middle of the target region (red), even when their number is decreased. Also, notice that person features are compactly placed together in the red cloud, while features of objects from alien classes are organized into smaller green different
+regions far from people: our algorithm has reached the capability to produce features with both compactness and descriptiveness properties.
+
+Finally, Deep One-class Classification is evaluated in contrast to binary one, when the num-
+ber of people samples available during the training is reduced: our approach is able to correctly
+work when the level of imbalance of the training classes increases, in contrast with the binary
+case. In the below figure, ROC curves of DOC (blue) and binary classification (red) models are shown using 600 (first image) and 400 (second image) people samples: the red curve is moving away from the blue one, performing worse than it. 
+
+![ROC600](https://user-images.githubusercontent.com/62990264/96347589-eead1900-10a2-11eb-8780-34cd2343d99a.png)
+
+![ROC400](https://user-images.githubusercontent.com/62990264/96347578-d50bd180-10a2-11eb-9389-5bf1ea1507b0.png)
 
 ## Current environment
 * Ubuntu 18.04.5 supplied by GPU NVIDIA GeForce RTX 2080 with 8GB of memory
