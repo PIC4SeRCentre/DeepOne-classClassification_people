@@ -10,7 +10,7 @@
 
 This repository presents a Deep Learning algorithm able to recognize people instances in pictures.
 
-TIt is a One-Class Classification (OCC) problem where objects of a particular class are identified compared to all other possible ones. The person class is called *positive class* or *target class*, while other items are referred to be in the *negative class*, also called *alien class*.
+It is a One-Class Classification (OCC) problem, where objects of a particular class are identified compared to all other possible ones. The person class is called *positive class* or *target class*, while other items are referred to be in the *negative class*, also called *alien class*.
 The biggest challenge is represented by the variety of objects opposed to the target class, which does neither allow to model the external class in a univocal way, nor to have all possible cases inside the training set. This problem cannot be solved using traditional techniques of binary and multiclass classifications, precisely because there are no pre-defined classes.
 
 We use **Deep One-class Classification** (DOC), a method proposed by Pramuditha Perera and Vishal M. Patel, targeting OCC problems in computer vision field, like *novelty detection, anomaly detection* and *mobile active authentication*.
@@ -23,7 +23,7 @@ The key element in the discussion is *learning deep features* that characterize 
 Another key element is the concept of *transfer learning* that allows to adapt a labeled dataset from an independent task, called *reference dataset*, to the One-Class Classification, in order to fill the lack coming from alien classes.
 
 A pre-trained Convolutional Neural Network, the high-performance MobileNetV2, is used in combination with two customized loss functions, *compactness loss* and *descriptiveness loss* to realize people recognition.
-Specialized features for Deep One-class Classification have the two fundamental properties of *compactness*, which means that objects of the same category have similar features located close to each other, and *descriptiveness*, that is elements of different categories have different features placed apart from the rest.
+In this way, specialized features are learned for Deep One-class Classification with two fundamental properties: *compactness*, which means that objects of the same category have similar features located close to each other, and *descriptiveness*, that is elements of different categories have different features placed apart from the rest.
 
 ### Training datasets and training framework
 There are two training datasets in DOC: the *target dataset* and the *reference dataset*. 
@@ -34,7 +34,9 @@ The reference dataset, instead, is an arbitrary set containing unrelated images 
 
 The training part is carried out using grayscale images, obtained from the above defined RGB datasets, properly selected and pre-processed. This choice is motivated by a future extension of the Deep One-class Classification in InfraRed images.
 
-A unique MobileNetV2 is instantiated and fed with a big input batch, composed of two smaller batches of the same size: the *target sub-batch* and the *reference sub-batch*. From the first one, we look for features that characterize the target class coming from *model_features*. The meaningful output is produced by the average pooling layer : 1280 values for each image of the batch, representing the person features we want to impose as close as possible through the *compactness loss* minimization.
+A unique MobileNetV2 is instantiated and fed with a big input batch, composed of two smaller batches of the same size: the *target sub-batch* and the *reference sub-batch*.
+
+From the first one, we look for features that characterize the target class coming from *model_features*. The meaningful output is produced by the average pooling layer : 1280 values for each image of the batch, representing the person features we want to impose as close as possible through the *compactness loss* minimization.
 
 From the second one, instead, we are interested in the classification output provided by the fully connected layer: 20 values that rapresent the categorical label of one among the 20 classes from the reference dataset. The *descriptiveness loss* is computed from them and minimized to impose descriptiveness in features.
 
