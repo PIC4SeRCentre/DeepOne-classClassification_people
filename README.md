@@ -8,14 +8,17 @@
 
 # Deep One Class Classification of people
 
-## Description of the project
 A Deep Learning algorithm able to recognize people instances in pictures is developed.
 
 This is a One-Class Classification (OCC) problem where objects of a particular class are identified compared to all other possible ones. The person class is called *positive class* or *target class*, while other items are referred to be in the *negative class*, also called *alien class*.
 The biggest challenge is represented by the variety of objects opposed to the target class, which does neither allow to model the external class in a univocal way, nor to have all possible cases inside the training set. This problem cannot be solved using traditional techniques of binary and multiclass classifications, precisely because there are no pre-defined classes.
 
-We use **Deep One-class Classification** (DOC), a method proposed by Pramuditha Perera and Vishal M. Patel, targeting One-Class Classification (OCC) problems in computer vision field, like novelty detection, anomaly detection and mobile active authentication.
+We use **Deep One-class Classification** (DOC), a method proposed by Pramuditha Perera and Vishal M. Patel, targeting OCC problems in computer vision field, like *novelty detection, anomaly detection and mobile active authentication*.
 The method is described in the article [Learning Deep Features for One-Class Classification](https://arxiv.org/abs/1801.05365) published in November 2019.
+
+## Description of the project
+The key element in the discussion is *learning deep features* that characterize instances of people. The class composed by person examples is highly wide and therefore features are different and heterogeneous, this is very challenging.
+The computation of the customized loss function called compactness loss helps in this process, evaluating the compactness of person class in the feature space.
 
 This approach relies on the concept of transfer learning, since an external multiclass
 dataset from an unrelated task, called reference dataset, is employed to
