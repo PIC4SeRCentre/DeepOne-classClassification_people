@@ -8,7 +8,7 @@
 
 # Deep One Class Classification of people
 
-This repository shows a Deep Learning algorithm able to recognize people instances in pictures.
+This repository presents a Deep Learning algorithm able to recognize people instances in pictures.
 
 TIt is a One-Class Classification (OCC) problem where objects of a particular class are identified compared to all other possible ones. The person class is called *positive class* or *target class*, while other items are referred to be in the *negative class*, also called *alien class*.
 The biggest challenge is represented by the variety of objects opposed to the target class, which does neither allow to model the external class in a univocal way, nor to have all possible cases inside the training set. This problem cannot be solved using traditional techniques of binary and multiclass classifications, precisely because there are no pre-defined classes.
