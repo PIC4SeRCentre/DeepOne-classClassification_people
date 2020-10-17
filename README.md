@@ -43,15 +43,17 @@ From the second one, instead, we are interested in the classification output pro
 ![losses](https://user-images.githubusercontent.com/62990264/96336455-4423fe80-1080-11eb-8561-ca150142705c.PNG)
 
 ### Testing datasets and testing framework
-The testing part is realized by a *template matching framework*: firstly, some baseline features of person intances are stored as templates and then, in *matching phase*, a score is generated considering the Euclidean distance between them and new features from the test image. The score is transformed in considerable output for One-Class Classification thanks to a threshold.
+The testing part is realized by a *template matching framework*: firstly in *template generation phase*, some baseline features of person intances are stored as templates and then, in *matching phase*, a score is generated considering the Euclidean distance between them and new features from the test image. The score is transformed in considerable output for One-Class Classification thanks to a threshold.
+
+![testing](https://user-images.githubusercontent.com/62990264/96346403-f0bfa980-109b-11eb-9795-f26dd713ab61.PNG)
 
 ### Achieved results
 All models are evaluated using metrics like precision, recall, F1 score, accuracy and the Area Under Curve (AUC) of the ROC curve.
-Also some graphical tools are employed to make comparisons among resulting
-methods, like Receiver Operating Characteristic (ROC) curves, Detection Error
-Tradeoff (DET) curves and the t-distributed Stochastic Neighbor Embedding (t-
-SNE) visualization of features.
+Also some graphical tools are employed to make comparisons among resulting methods, like Receiver Operating Characteristic (ROC) curves, Detection Error
+Tradeoff (DET) curves and the t-distributed Stochastic Neighbor Embedding (t-SNE) visualization of features.
 The proposed approach is able to achieve very good results in all measurements, also compared to binary classification algorithms, which require instead a particular configuration of the training dataset.
+
+
 
 ## Current environment
 * Ubuntu 18.04.5 supplied by GPU NVIDIA GeForce RTX 2080 with 8GB of memory
