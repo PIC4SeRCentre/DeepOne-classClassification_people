@@ -1,12 +1,12 @@
-> Project: "project name"
+> Project: "Deep One Class Classification of people"
 
-> Owner: "project owner name" 
+> Owner: "Tiziana Lasala" 
 
-> Date: "yyyy:mm" 
+> Date: "2020:10" 
 
 ---
 
-# Title
+# Deep One Class Classification of people
 
 ## Description of the project
 ...
