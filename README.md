@@ -127,4 +127,8 @@ Following files are present in the repository:
 
 * **testBN_binaryIR.ipynb**: notebook where training of *binary* models is performed on a IR dataset of 110 elements to compare them to DOC models;
 
+* **templatesBN.zip**: folder with examples of 40 grayscale templates;
+
+* **templatesIR.zip**: folder with examples of 20 infrared templates;
+
 * **requirements.txt**: file that contains required libraries.
