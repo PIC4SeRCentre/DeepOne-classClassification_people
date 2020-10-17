@@ -30,17 +30,14 @@ There are two training datasets in DOC: the *target dataset* and the *reference 
 
 The first one is composed of images of the class we want to recognize: the class person. This dataset should be as heterogeneous as possible, including most of features that can be later isolated as person features. We look for these images in Open Images Dataset V4.
 
-The reference dataset, instead, is an arbitrary set containing unrelated images from multiple classes. In this work, a subset of the training set of ILSVR2012 is used, made of 10000 images from
-randomly chosen 20 classes. 
+The reference dataset, instead, is an arbitrary set containing unrelated images from multiple classes. In this work, a subset of the training set of ILSVR2012 is used, made of 10000 images from randomly chosen 20 classes. 
 
-The training part is carried out using grayscale images, obtained from the above defined RGB datasets, properly selected and pre-processed. This choice is motivated by a future extension of the Deep One-class Classification in InfraRed images.
-A unique MobileNetV2 is instantiated and fed with a big input batch, composed of two smaller
-batches of the same size: the *target sub-batch* and the *reference sub-batch*. From the first one, we look for features that characterize the target class. The meaningful output is produced by the average pooling layer : 1280 values for each image of the batch, representing the person features we want to impose as close as possible.
+The training part is carried out using grayscale images, obtained from the above defined RGB datasets, properly selected and pre-processed. This choice is motivated by a future extension of the Deep One-class Classification in InfraRed images.\\
+A unique MobileNetV2 is instantiated and fed with a big input batch, composed of two smaller batches of the same size: the *target sub-batch* and the *reference sub-batch*. From the first one, we look for features that characterize the target class. The meaningful output is produced by the average pooling layer : 1280 values for each image of the batch, representing the person features we want to impose as close as possible.
 
-From the second one, instead, we are interested in the classification output provided by the fully
-connected layer : 20 values that rapresent the categorical label of one among the 20 classes from
-the reference dataset. The cross-entropy loss is evaluated to impose descriptiveness in features.
+From the second one, instead, we are interested in the classification output provided by the fully connected layer : 20 values that rapresent the categorical label of one among the 20 classes from the reference dataset. The cross-entropy loss is evaluated to impose descriptiveness in features.
 
+![alt text](https://github.com/PIC4SeRCentre/DeepOne-classClassification_people/edit/master/Images/losses.PNG "Logo Title Text 1")
 
 ## Testing datasets and testing framework
 The testing part is realized by a template matching framework: firstly, some baseline features of person intances are stored as templates and then, in matching phase, a score is generated considering the Euclidean distance between them and new features from the test image. The score is transformed in considerable output for One-Class Classification thanks to a threshold.
