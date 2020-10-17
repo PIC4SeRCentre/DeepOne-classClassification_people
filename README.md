@@ -111,8 +111,20 @@ case. In the below figures, ROC curves of DOC (blue) and binary classification (
 ## User Guide
 Following files are present in the repository:
 
+* **trainBN.ipynb**: notebook where training of *DOC* models is performed;
 
-...
+* **imagenet_metadat.txt**: auxiliary file of *trainBN.ipynb*;
 
-P.S. Compile requirements.txt file if needed
+* **imagenet_lsvrc_2015_synsets.txt**: auxiliary file of *trainBN.ipynb*;
 
+* **testBN.ipynb**: notebook where testing of *DOC* models is performed on two different grayscale datasets of 2000 elements each;
+
+* **test_surveillance_IR.ipynb**: notebook where testing of *DOC* models is performed on a IR dataset of 110 elements;
+
+* **trainBN_binary.ipynb**: notebook where training of *binary* models is performed to compare them to DOC models;
+
+* **testBN_binary.ipynb**: notebook where testing of *binary* models is performed on two different grayscale datasets of 2000 elements each to compare them to DOC models;
+
+* **testBN_binaryIR.ipynb**: notebook where training of *binary* models is performed on a IR dataset of 110 elements to compare them to DOC models;
+
+* **requirements.txt**: file that contains required libraries.
