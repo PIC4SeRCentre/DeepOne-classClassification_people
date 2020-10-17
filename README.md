@@ -14,6 +14,7 @@ This is a One-Class Classification (OCC) problem where objects of a particular c
 The biggest challenge is represented by the variety of objects opposed to the target class, which does neither allow to model the external class in a univocal way, nor to have all possible cases inside the training set. This problem cannot be solved using traditional techniques of binary and multiclass classifications, precisely because there are no pre-defined classes.
 
 We use **Deep One-class Classification** (DOC), a method proposed by Pramuditha Perera and Vishal M. Patel, targeting OCC problems in computer vision field, like *novelty detection, anomaly detection and mobile active authentication*.
+
 The method is described in the article [Learning Deep Features for One-Class Classification](https://arxiv.org/abs/1801.05365) published in November 2019.
 
 ## Description of the project
