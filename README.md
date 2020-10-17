@@ -37,7 +37,7 @@ A unique MobileNetV2 is instantiated and fed with a big input batch, composed of
 
 From the second one, instead, we are interested in the classification output provided by the fully connected layer : 20 values that rapresent the categorical label of one among the 20 classes from the reference dataset. The cross-entropy loss is evaluated to impose descriptiveness in features.
 
-![alt text](https://github.com/PIC4SeRCentre/DeepOne-classClassification_people/edit/master/Images/losses.PNG "Logo Title Text 1")
+![alt text](https://github.com/PIC4SeRCentre/DeepOne-classClassification_people/edit/master/Images/losses.PNG?raw=true "Logo Title Text 1")
 
 ## Testing datasets and testing framework
 The testing part is realized by a template matching framework: firstly, some baseline features of person intances are stored as templates and then, in matching phase, a score is generated considering the Euclidean distance between them and new features from the test image. The score is transformed in considerable output for One-Class Classification thanks to a threshold.
